@@ -1,0 +1,16 @@
+#!/bin/bash
+# Cobolt VCS executable wrapper
+
+# Get the directory where this script is located
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+JAR_PATH="$SCRIPT_DIR/target/cobolt.jar"
+
+# Check if JAR exists
+if [ ! -f "$JAR_PATH" ]; then
+    echo "Error: cobolt.jar not found at $JAR_PATH"
+    echo "Please run 'mvn package' to build the project first"
+    exit 1
+fi
+
+# Run the JAR with all arguments passed through
+exec java -jar "$JAR_PATH" "$@"
