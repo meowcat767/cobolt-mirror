@@ -1,10 +1,9 @@
 # Installing Cobolt as an Executable
 
-There are several ways to make Cobolt easier to run:
 
 ## Option 1: Shell Script Wrapper (Linux/Mac) - Recommended ✅
 
-A wrapper script `cobolt` has been created for you. Use it like this:
+A wrapper script `cobolt` has been created for you to use. Use it like this:
 
 ```bash
 # Run from the cobolt directory
@@ -25,7 +24,7 @@ cobolt status
 
 ```bash
 # Add cobolt directory to your PATH
-echo 'export PATH="$PATH:/home/deck/.gemini/antigravity/scratch/cobolt"' >> ~/.bashrc
+echo 'export PATH="$PATH:/home/location/of/cobolt"' >> ~/.bashrc
 source ~/.bashrc
 
 # Now run from anywhere
@@ -36,7 +35,7 @@ cobolt --help
 
 ```bash
 # Add to ~/.bashrc or ~/.zshrc
-echo 'alias cobolt="java -jar /home/deck/.gemini/antigravity/scratch/cobolt/target/cobolt.jar"' >> ~/.bashrc
+echo 'alias cobolt="java -jar /home/path/to/cobolt.jar"' >> ~/.bashrc
 source ~/.bashrc
 
 # Use anywhere
