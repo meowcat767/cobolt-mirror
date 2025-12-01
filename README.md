@@ -7,10 +7,16 @@ A modern version control system written in Java with improved CLI aesthetics and
 - ✅ **Git Compatible**: Use Cobolt on existing Git repositories
 - ✅ **Beautiful CLI**: Colored output with Unicode symbols (✓, ✗, ⚠, ℹ)
 - ✅ **Core VCS Operations**: init, add, commit, status, log, branch, checkout
+<<<<<<< HEAD
 - ✅ **Tag Management**: Create and manage version tags
 - ✅ **Push/Pull**: Works with GitHub, GitLab, and any Git remote
 - 🚧 **Advanced Merge**: Foundation for intelligent conflict resolution
 - 🚧 **Diff Engine**: Syntax-aware diff visualization (coming soon)
+=======
+- ✅ **Rich CLI Output**: Colored terminal output with Unicode symbols
+- ✅ **Git-like Architecture**: Blob, tree, and commit objects with SHA-1 hashing
+- ✅ **Branch Management**: Create, list, delete, and switch branches
+>>>>>>> 6e49c36af0984741e594433e2913811094ceea69
 
 ## Quick Start
 
@@ -185,7 +191,7 @@ Cobolt is designed from the ground up to support:
 
 ## Contributing
 
-This is a demonstration project showing VCS internals and modern CLI design. Core areas for contribution:
+Core areas for contribution:
 
 1. **Diff Engine**: Implement Myers algorithm in `DiffEngine.java`
 2. **Merge System**: Build interactive conflict resolver in `MergeEngine.java`
@@ -195,7 +201,3 @@ This is a demonstration project showing VCS internals and modern CLI design. Cor
 ## License
 
 MIT License - Feel free to learn from and extend this code.
-
-## Authors
-
-Built as a modern take on version control with focus on user experience.
