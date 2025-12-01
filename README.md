@@ -158,7 +158,7 @@ Cobolt is designed from the ground up to support:
 
 ## Contributing
 
-This is a demonstration project showing VCS internals and modern CLI design. Core areas for contribution:
+Core areas for contribution:
 
 1. **Diff Engine**: Implement Myers algorithm in `DiffEngine.java`
 2. **Merge System**: Build interactive conflict resolver in `MergeEngine.java`
