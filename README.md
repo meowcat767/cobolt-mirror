@@ -1,23 +1,48 @@
 # Cobolt Version Control System
 
-A modern version control system written in Java with improved CLI aesthetics and foundation for advanced merge capabilities.
+A modern version control system written in Java with improved CLI aesthetics and **full Git integration**.
 
-## Features
+## 🎯 Key Features
 
+- ✅ **Git Compatible**: Use Cobolt on existing Git repositories
+- ✅ **Beautiful CLI**: Colored output with Unicode symbols (✓, ✗, ⚠, ℹ)
 - ✅ **Core VCS Operations**: init, add, commit, status, log, branch, checkout
-- ✅ **Rich CLI Output**: Colored terminal output with Unicode symbols
-- ✅ **Git-like Architecture**: Blob, tree, and commit objects with SHA-1 hashing
-- ✅ **Branch Management**: Create, list, delete, and switch branches
-- 🚧 **Advanced Merge**: Foundation ready for intelligent conflict resolution
-- 🚧 **Diff Engine**: Placeholder for syntax-aware diff visualization
+- ✅ **Tag Management**: Create and manage version tags
+- ✅ **Push/Pull**: Works with GitHub, GitLab, and any Git remote
+- 🚧 **Advanced Merge**: Foundation for intelligent conflict resolution
+- 🚧 **Diff Engine**: Syntax-aware diff visualization (coming soon)
 
 ## Quick Start
+
+### Using with Git (Recommended)
+
+```bash
+# Use Cobolt on any existing Git repository
+cd ~/my-git-project
+
+# Beautiful status output
+cobolt status
+
+# Add files with visual feedback
+cobolt add .
+
+# Commit with Cobolt's UX
+cobolt commit -m "Updated features"
+
+# Push to remote
+cobolt push origin main
+
+# Your commits are real Git commits!
+git log
+```
+
+### Pure Cobolt Mode
 
 ```bash
 # Build the project
 mvn clean package
 
-# Initialize a repository
+# Initialize a Cobolt-only repository
 java -jar target/cobolt.jar init
 
 # Add files

@@ -19,7 +19,9 @@ import picocli.CommandLine.Option;
         MergeCommand.class,
         TagCommand.class,
         ResetCommand.class,
-        ShowCommand.class
+        ShowCommand.class,
+        PullCommand.class,
+        PushCommand.class
 })
 public class CoboltCLI implements Runnable {
 
