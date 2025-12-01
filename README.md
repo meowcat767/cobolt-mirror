@@ -170,7 +170,3 @@ This is a demonstration project showing VCS internals and modern CLI design. Cor
 ## License
 
 MIT License - Feel free to learn from and extend this code.
-
-## Authors
-
-Built as a modern take on version control with focus on user experience.
