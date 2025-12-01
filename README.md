@@ -8,8 +8,6 @@ A modern version control system written in Java with improved CLI aesthetics and
 - ✅ **Rich CLI Output**: Colored terminal output with Unicode symbols
 - ✅ **Git-like Architecture**: Blob, tree, and commit objects with SHA-1 hashing
 - ✅ **Branch Management**: Create, list, delete, and switch branches
-- 🚧 **Advanced Merge**: Foundation ready for intelligent conflict resolution
-- 🚧 **Diff Engine**: Placeholder for syntax-aware diff visualization
 
 ## Quick Start
 
