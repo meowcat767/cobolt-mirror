@@ -3,12 +3,18 @@
 
 # Get the directory where this script is located
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-JAR_PATH="$SCRIPT_DIR/target/cobolt.jar"
 
-# Check if JAR exists
-if [ ! -f "$JAR_PATH" ]; then
-    echo "Error: cobolt.jar not found at $JAR_PATH"
-    echo "Please run 'mvn package' to build the project first"
+# Try to find the JAR - check installed location first, then project location
+if [ -f "$SCRIPT_DIR/cobolt.jar" ]; then
+    JAR_PATH="$SCRIPT_DIR/cobolt.jar"
+elif [ -f "$SCRIPT_DIR/target/cobolt.jar" ]; then
+    JAR_PATH="$SCRIPT_DIR/target/cobolt.jar"
+else
+    echo "Error: cobolt.jar not found"
+    echo "Searched in:"
+    echo "  - $SCRIPT_DIR/cobolt.jar (installed location)"
+    echo "  - $SCRIPT_DIR/target/cobolt.jar (build location)"
+    echo "Please run 'mvn package' or './install.sh' first"
     exit 1
 fi
 

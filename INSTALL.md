@@ -1,105 +1,139 @@
-# Installing Cobolt as an Executable
+# Quick Installation Guide
 
-There are several ways to make Cobolt easier to run:
+## Automatic Installation (Recommended)
 
-## Option 1: Shell Script Wrapper (Linux/Mac) - Recommended ✅
-
-A wrapper script `cobolt` has been created for you. Use it like this:
+Run the install script after building:
 
 ```bash
-# Run from the cobolt directory
-./cobolt init
-./cobolt add .
-./cobolt commit -m "Test"
+# Build and install automatically
+mvn clean install
 
-# Or install it globally
-sudo cp cobolt /usr/local/bin/
-sudo cp target/cobolt.jar /usr/local/bin/
-
-# Then use it anywhere
-cobolt init
-cobolt status
+# Or build first, then install
+mvn clean package
+./install.sh
 ```
 
-## Option 2: Add to PATH
+The script will:
+- ✅ Install `cobolt` to `~/bin` or `/usr/local/bin`
+- ✅ Copy the JAR file
+- ✅ Make the wrapper executable
+- ✅ Optionally update your PATH
+
+## Manual Installation
+
+### Option 1: User Installation (~/bin)
 
 ```bash
-# Add cobolt directory to your PATH
-echo 'export PATH="$PATH:/home/deck/.gemini/antigravity/scratch/cobolt"' >> ~/.bashrc
-source ~/.bashrc
+# Create bin directory if needed
+mkdir -p ~/bin
 
-# Now run from anywhere
+# Copy files
+cp cobolt ~/bin/
+cp target/cobolt.jar ~/bin/
+chmod +x ~/bin/cobolt
+
+# Add to PATH (if not already there)
+echo 'export PATH="$PATH:$HOME/bin"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+### Option 2: System-wide Installation
+
+```bash
+# Requires sudo
+sudo cp cobolt /usr/local/bin/
+sudo cp target/cobolt.jar /usr/local/bin/
+sudo chmod +x /usr/local/bin/cobolt
+```
+
+## Auto-Update After Build
+
+### Method 1: Use Maven Install Phase
+
+Just use `mvn install` instead of `mvn package`:
+
+```bash
+mvn clean install
+# Automatically runs install.sh after build!
+```
+
+### Method 2: Add Alias
+
+Add to your `~/.bashrc` or `~/.zshrc`:
+
+```bash
+alias cobolt-update='cd /home/deck/.gemini/antigravity/scratch/cobolt && mvn clean install'
+```
+
+Then just run:
+```bash
+cobolt-update
+```
+
+### Method 3: Git Hook
+
+Create `.git/hooks/post-merge`:
+
+```bash
+#!/bin/bash
+echo "Rebuilding and installing Cobolt..."
+mvn clean install
+```
+
+```bash
+chmod +x .git/hooks/post-merge
+```
+
+Now after `git pull`, Cobolt automatically rebuilds and installs!
+
+## Verify Installation
+
+```bash
+# Check if cobolt is in PATH
+which cobolt
+
+# Test it
+cobolt --version
 cobolt --help
 ```
 
-## Option 3: Create System-wide Alias
+## Updating Cobolt
+
+Whenever you make code changes:
 
 ```bash
-# Add to ~/.bashrc or ~/.zshrc
-echo 'alias cobolt="java -jar /home/deck/.gemini/antigravity/scratch/cobolt/target/cobolt.jar"' >> ~/.bashrc
-source ~/.bashrc
+# Quick update
+mvn clean install
 
-# Use anywhere
-cobolt init
+# Or manual
+mvn clean package
+./install.sh
 ```
 
-## Option 4: Copy to ~/bin
+## Uninstall
 
 ```bash
-# Create bin directory if it doesn't exist
-mkdir -p ~/bin
+# If installed to ~/bin
+rm ~/bin/cobolt ~/bin/cobolt.jar
 
-# Copy both files
-cp cobolt ~/bin/
-cp target/cobolt.jar ~/bin/
+# If installed to /usr/local/bin
+sudo rm /usr/local/bin/cobolt /usr/local/bin/cobolt.jar
 
-# Make sure ~/bin is in PATH (usually is by default)
-cobolt --version
+# Remove from PATH (edit ~/.bashrc or ~/.zshrc)
+# Remove the line: export PATH="$PATH:$HOME/bin"
 ```
 
-## Option 5: GraalVM Native Image (Advanced)
+## Troubleshooting
 
-For a true native executable with faster startup:
+**"cobolt: command not found"**
+- Run `source ~/.bashrc` or restart terminal
+- Check PATH: `echo $PATH`
+- Verify installation: `ls ~/bin/cobolt`
 
-```bash
-# Install GraalVM native-image
-# Then build native executable
-native-image -jar target/cobolt.jar cobolt-native
+**"Permission denied"**
+- Make sure script is executable: `chmod +x ~/bin/cobolt`
+- Or use sudo for system-wide install
 
-# Results in a single binary with no JVM required
-./cobolt-native --help
-```
-
-**Note**: This requires GraalVM and additional configuration.
-
-## For Windows Users
-
-Use the `cobolt.bat` script:
-
-```batch
-# Run from cobolt directory
-cobolt.bat init
-cobolt.bat status
-
-# Or add to PATH
-set PATH=%PATH%;C:\path\to\cobolt
-cobolt init
-```
-
-## Recommended Setup
-
-For daily use, I recommend **Option 1** (wrapper script in PATH):
-
-```bash
-# One-time setup
-sudo cp /home/deck/.gemini/antigravity/scratch/cobolt/cobolt /usr/local/bin/
-sudo cp /home/deck/.gemini/antigravity/scratch/cobolt/target/cobolt.jar /usr/local/bin/
-
-# Now use cobolt anywhere
-cd ~/my-project
-cobolt init
-cobolt add .
-cobolt commit -m "Initial commit"
-```
-
-This gives you a clean `cobolt` command without typing `java -jar` every time!
+**JAR not found**
+- Build first: `mvn clean package`
+- Check: `ls target/cobolt.jar`
