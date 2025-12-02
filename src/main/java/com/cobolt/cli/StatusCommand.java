@@ -22,7 +22,7 @@ public class StatusCommand implements Callable<Integer> {
         try {
             Path repoRoot = Repository.findRepositoryRoot(Paths.get("").toAbsolutePath());
             if (repoRoot == null) {
-                OutputFormatter.error("Not a Cobolt repository");
+                OutputFormatter.error("Not a Cobolt repository; have you run cobolt init?");
                 return 1;
             }
 

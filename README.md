@@ -16,7 +16,6 @@ A modern version control system written in Java with improved CLI aesthetics and
 - ✅ **Rich CLI Output**: Colored terminal output with Unicode symbols
 - ✅ **Git-like Architecture**: Blob, tree, and commit objects with SHA-1 hashing
 - ✅ **Branch Management**: Create, list, delete, and switch branches
->>>>>>> 6e49c36af0984741e594433e2913811094ceea69
 
 ## Quick Start
 
@@ -100,42 +99,8 @@ cobolt init
 - `cobolt diff` - Show file changes with syntax highlighting
 - `cobolt merge <branch>` - Intelligent merge with interactive conflict resolution
 
-## Architecture
 
 ### Core Components
-
-**Object Model** (`com.cobolt.core`):
-- `CoboltObject` - Base class for all objects
-- `Blob` - File content storage
-- `Tree` - Directory structure
-- `Commit` - Snapshot with metadata
-- `Index` - Staging area
-- `Repository` - Central manager
-
-**CLI Layer** (`com.cobolt.cli`):
-- Picocli-based command parser
-- Rich terminal formatting with Jansi
-- Colorized output and progress indicators
-
-**Utilities** (`com.cobolt.objects`):
-- SHA-1 hashing
-- File operations
-- Serialization
-
-### Storage Format
-
-```
-.cobolt/
-├── objects/           # Content-addressable object store
-│   └── ab/
-│       └── cd1234... # SHA-1 hashed objects
-├── refs/
-│   ├── heads/        # Branch references
-│   └── tags/         # Tag references
-├── HEAD              # Current branch pointer
-├── index             # Staging area
-└── config            # Repository configuration
-```
 
 ## Requirements
 
