@@ -100,42 +100,8 @@ cobolt init
 - `cobolt diff` - Show file changes with syntax highlighting
 - `cobolt merge <branch>` - Intelligent merge with interactive conflict resolution
 
-## Architecture
 
 ### Core Components
-
-**Object Model** (`com.cobolt.core`):
-- `CoboltObject` - Base class for all objects
-- `Blob` - File content storage
-- `Tree` - Directory structure
-- `Commit` - Snapshot with metadata
-- `Index` - Staging area
-- `Repository` - Central manager
-
-**CLI Layer** (`com.cobolt.cli`):
-- Picocli-based command parser
-- Rich terminal formatting with Jansi
-- Colorized output and progress indicators
-
-**Utilities** (`com.cobolt.objects`):
-- SHA-1 hashing
-- File operations
-- Serialization
-
-### Storage Format
-
-```
-.cobolt/
-├── objects/           # Content-addressable object store
-│   └── ab/
-│       └── cd1234... # SHA-1 hashed objects
-├── refs/
-│   ├── heads/        # Branch references
-│   └── tags/         # Tag references
-├── HEAD              # Current branch pointer
-├── index             # Staging area
-└── config            # Repository configuration
-```
 
 ## Requirements
 
