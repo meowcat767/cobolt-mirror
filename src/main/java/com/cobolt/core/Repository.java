@@ -87,7 +87,69 @@ public class Repository {
         return null;
     }
 
+    // Remote methods
+
+    /**
+     * Add a remote repository
+     */
+    public void addRemote(String name, String url) throws IOException {
+        // Simple config storage: remote.name.url=url
+        // For now, we just assume url is a local path
+        Path config = coboltDir.resolve("config");
+        List<String> lines = Files.readAllLines(config);
+        List<String> newLines = new ArrayList<>(lines);
+        newLines.add("remote." + name + ".url=" + url);
+        Files.write(config, newLines);
+    }
+
+    /**
+     * Get remote URL
+     */
+    public String getRemoteUrl(String name) throws IOException {
+        Path config = coboltDir.resolve("config");
+        List<String> lines = Files.readAllLines(config);
+        for (String line : lines) {
+            if (line.startsWith("remote." + name + ".url=")) {
+                return line.split("=", 2)[1];
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Push to remote
+     */
+    public void push(String remoteName, String branchName) throws IOException {
+        String url = getRemoteUrl(remoteName);
+        if (url == null) {
+            throw new IOException("Remote not found: " + remoteName);
+        }
+
+        Repository remoteRepo = new Repository(Path.of(url));
+        RemoteUtils.push(this, remoteRepo, branchName);
+    }
+
+    /**
+     * Pull from remote
+     */
+    public void pull(String remoteName, String branchName) throws IOException {
+        String url = getRemoteUrl(remoteName);
+        if (url == null) {
+            throw new IOException("Remote not found: " + remoteName);
+        }
+
+        Repository remoteRepo = new Repository(Path.of(url));
+        RemoteUtils.pull(this, remoteRepo, branchName);
+    }
+
     // Object storage methods
+
+    private final Map<String, CoboltObject> objectCache = new LinkedHashMap<String, CoboltObject>(100, 0.75f, true) {
+        @Override
+        protected boolean removeEldestEntry(Map.Entry<String, CoboltObject> eldest) {
+            return size() > 100;
+        }
+    };
 
     /**
      * Write object to object database
@@ -95,6 +157,9 @@ public class Repository {
     public String writeObject(CoboltObject obj) throws IOException {
         obj.computeId();
         String id = obj.getId();
+
+        // Cache it
+        objectCache.put(id, obj);
 
         Path objectPath = getObjectPath(id);
         if (Files.exists(objectPath)) {
@@ -111,6 +176,10 @@ public class Repository {
      * Read object from object database
      */
     public CoboltObject readObject(String id) throws IOException {
+        if (objectCache.containsKey(id)) {
+            return objectCache.get(id);
+        }
+
         Path objectPath = getObjectPath(id);
         if (!Files.exists(objectPath)) {
             throw new IOException("Object not found: " + id);
@@ -118,7 +187,9 @@ public class Repository {
 
         try {
             byte[] data = FileUtils.readBytes(objectPath);
-            return SerializationUtils.deserialize(data);
+            CoboltObject obj = SerializationUtils.deserialize(data);
+            objectCache.put(id, obj);
+            return obj;
         } catch (ClassNotFoundException e) {
             throw new IOException("Failed to deserialize object: " + id, e);
         }
@@ -128,6 +199,9 @@ public class Repository {
      * Check if object exists
      */
     public boolean hasObject(String id) {
+        if (objectCache.containsKey(id)) {
+            return true;
+        }
         return Files.exists(getObjectPath(id));
     }
 
