@@ -2,6 +2,9 @@ package com.cobolt.cli;
 
 import org.fusesource.jansi.Ansi;
 
+import java.time.LocalDate;
+import java.time.Month;
+
 import static org.fusesource.jansi.Ansi.ansi;
 
 /**
@@ -28,6 +31,17 @@ public class Banner {
             System.out.println(LOGO);
             System.out.println(TAGLINE);
         }
+
+        // Add Christmas message if it's December 25th
+        if (isChristmas()) {
+            String christmasMessage = "  🎄 Merry Christmas from the Cobolt team! 🎁";
+            if (OutputFormatter.colorEnabled) {
+                System.out.println(ansi().fgBright(Ansi.Color.GREEN).a(christmasMessage).reset());
+            } else {
+                System.out.println(christmasMessage);
+            }
+        }
+
         System.out.println();
     }
 
@@ -42,5 +56,13 @@ public class Banner {
         } else {
             System.out.println("COBOLT VCS");
         }
+    }
+
+    /**
+     * Check if today is Christmas (December 25th)
+     */
+    private static boolean isChristmas() {
+        LocalDate today = LocalDate.now();
+        return today.getMonth() == Month.DECEMBER && today.getDayOfMonth() == 25;
     }
 }
