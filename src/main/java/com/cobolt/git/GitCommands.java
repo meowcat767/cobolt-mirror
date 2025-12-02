@@ -111,6 +111,43 @@ public class GitCommands {
     }
 
     /**
+     * List all remotes
+     */
+    public java.util.Map<String, String> listRemotes() throws Exception {
+        Git git = adapter.getGit();
+        java.util.Map<String, String> remotes = new java.util.HashMap<>();
+
+        git.remoteList().call().forEach(remote -> {
+            if (!remote.getURIs().isEmpty()) {
+                remotes.put(remote.getName(), remote.getURIs().get(0).toString());
+            }
+        });
+
+        return remotes;
+    }
+
+    /**
+     * Add a remote
+     */
+    public void addRemote(String name, String url) throws Exception {
+        Git git = adapter.getGit();
+        git.remoteAdd()
+                .setName(name)
+                .setUri(new org.eclipse.jgit.transport.URIish(url))
+                .call();
+    }
+
+    /**
+     * Remove a remote
+     */
+    public void removeRemote(String name) throws Exception {
+        Git git = adapter.getGit();
+        git.remoteRemove()
+                .setRemoteName(name)
+                .call();
+    }
+
+    /**
      * Close adapter
      */
     public void close() {

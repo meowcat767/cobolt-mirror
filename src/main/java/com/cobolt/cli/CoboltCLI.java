@@ -20,6 +20,7 @@ import picocli.CommandLine.Option;
         TagCommand.class,
         ResetCommand.class,
         ShowCommand.class,
+        RemoteCommand.class,
         PullCommand.class,
         PushCommand.class
 })
