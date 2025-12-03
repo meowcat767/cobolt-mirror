@@ -62,19 +62,11 @@ public class InteractiveCredentialsProvider extends CredentialsProvider {
 
         for (CredentialItem item : items) {
             if (item instanceof CredentialItem.Username) {
-                String prompt = item.getPromptText();
-                if (prompt == null || prompt.isEmpty()) {
-                    prompt = "Username: ";
-                }
-                String username = console.readLine(prompt);
+                String username = console.readLine("Username: ");
                 ((CredentialItem.Username) item).setValue(username);
                 lastUsername = username;
             } else if (item instanceof CredentialItem.Password) {
-                String prompt = item.getPromptText();
-                if (prompt == null || prompt.isEmpty()) {
-                    prompt = "Password: ";
-                }
-                char[] password = console.readPassword(prompt);
+                char[] password = console.readPassword("Password: ");
                 ((CredentialItem.Password) item).setValue(password);
                 lastPassword = new String(password);
             } else if (item instanceof CredentialItem.StringType) {
