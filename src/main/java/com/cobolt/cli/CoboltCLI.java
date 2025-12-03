@@ -22,7 +22,8 @@ import picocli.CommandLine.Option;
         ShowCommand.class,
         RemoteCommand.class,
         PullCommand.class,
-        PushCommand.class
+        PushCommand.class,
+        CredentialCommand.class
 })
 public class CoboltCLI implements Runnable {
 

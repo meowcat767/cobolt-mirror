@@ -72,7 +72,7 @@ public class GitCommands {
         git.push()
                 .setRemote(remote)
                 .add(branch)
-                .setCredentialsProvider(new InteractiveCredentialsProvider())
+                .setCredentialsProvider(new InteractiveCredentialsProvider(adapter.getRepository()))
                 .call();
     }
 
@@ -82,7 +82,7 @@ public class GitCommands {
     public void pull() throws Exception {
         Git git = adapter.getGit();
         git.pull()
-                .setCredentialsProvider(new InteractiveCredentialsProvider())
+                .setCredentialsProvider(new InteractiveCredentialsProvider(adapter.getRepository()))
                 .call();
     }
 

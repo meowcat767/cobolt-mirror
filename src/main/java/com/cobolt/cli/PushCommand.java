@@ -43,18 +43,18 @@ public class PushCommand implements Callable<Integer> {
 
             Banner.printCompact();
             OutputFormatter.blank();
-            OutputFormatter.progress("Pushing to " + remote + "/" + branch);
+            OutputFormatter.progress("Thrusting to " + remote + "/" + branch);
 
             git.push(remote, branch);
             git.close();
 
             OutputFormatter.clearProgress();
-            OutputFormatter.success("Successfully pushed to " + remote + "/" + branch);
+            OutputFormatter.success("Successfully thrust to " + remote + "/" + branch);
 
             return 0;
         } catch (Exception e) {
             OutputFormatter.clearProgress();
-            OutputFormatter.error("Failed to push: " + e.getMessage());
+            OutputFormatter.error("Failed to thrust: " + e.getMessage());
             e.printStackTrace();
             return 1;
         }
